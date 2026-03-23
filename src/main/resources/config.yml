@@ -1,0 +1,26 @@
+# L-s-KitPVP Configuration
+
+# PVP Spawn Location (Set via /lpvp set spawn)
+# pvp-spawn: ...
+
+# General Match Features
+# CombatLog: If false, logging out during a match is penalized (elimination).
+combat-log: false
+
+# BlockBreaking: Allow breaking blocks while in a match.
+block-breaking: true
+
+# BlockPlacing: Allow placing blocks while in a match.
+block-placing: true
+
+# ItemDropping: Allow dropping items (Q button) while in a match.
+item-dropping: false
+
+# PearlUsing: Allow using enderpearls while in a match.
+pearl-using: true
+
+# ChatDisabled: Prevent players from chatting while in a match.
+chat-disabled: false
+
+# CommandDisabled: Prevent players from using commands while in a match.
+command-disabled: false

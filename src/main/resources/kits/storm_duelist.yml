@@ -1,0 +1,33 @@
+display-name: "§bStorm Duelist"
+icon: DIAMOND_SWORD
+
+armor:
+  helmet:
+    material: IRON_HELMET
+    enchantments:
+      protection: 2
+  chestplate:
+    material: IRON_CHESTPLATE
+    enchantments:
+      protection: 2
+  leggings:
+    material: IRON_LEGGINGS
+  boots:
+    material: IRON_BOOTS
+    enchantments:
+      feather_falling: 4
+
+items:
+  - material: DIAMOND_SWORD
+    enchantments:
+      sharpness: 4
+  - material: POTION
+    amount: 3
+    potion-type: SPEED
+  - material: POTION
+    amount: 1
+    potion-type: STRENGTH
+  - material: GOLDEN_APPLE
+    amount: 10
+  - material: COBWEB
+    amount: 16

@@ -1,0 +1,46 @@
+# This is an example of how to structure a kit file.
+# Each file in the 'kits' folder will be loaded as a separate kit.
+# The filename (without .yml) is the kit's internal ID.
+
+# The name displayed in the Kit Pick GUI.
+display-name: "Example Kit Name"
+
+# The material used as the icon in the Kit Pick GUI.
+icon: DIAMOND_SWORD
+
+# Armor pieces: helmet, chestplate, leggings, boots.
+armor:
+  helmet:
+    material: IRON_HELMET
+    amount: 1
+    enchantments:
+      protection: 1
+      unbreaking: 2
+  chestplate:
+    material: IRON_CHESTPLATE
+    amount: 1
+    enchantments:
+      protection: 2
+  leggings:
+    material: IRON_LEGGINGS
+    amount: 1
+  boots:
+    material: IRON_BOOTS
+    amount: 1
+
+# List of items to give to the player.
+items:
+  - material: IRON_SWORD
+    amount: 1
+    enchantments:
+      sharpness: 2
+  - material: POTION
+    amount: 3
+    potion-type: SPEED
+  - material: POTION
+    amount: 1
+    potion-type: STRENGTH
+  - material: GOLDEN_APPLE
+    amount: 5
+  - material: COBBLESTONE
+    amount: 64

@@ -1,0 +1,30 @@
+display-name: "Iron Kit"
+icon: IRON_CHESTPLATE
+
+armor:
+  helmet:
+    material: IRON_HELMET
+    enchantments:
+      protection: 1
+  chestplate:
+    material: IRON_CHESTPLATE
+    enchantments:
+      protection: 1
+  leggings:
+    material: IRON_LEGGINGS
+  boots:
+    material: IRON_BOOTS
+
+items:
+  - material: IRON_SWORD
+    enchantments:
+      sharpness: 1
+  - material: SHIELD
+    enchantments:
+      unbreaking: 2
+  - material: GOLDEN_APPLE
+    amount: 6
+  - material: COOKED_PORKCHOP
+    amount: 16
+  - material: COBWEB
+    amount: 6

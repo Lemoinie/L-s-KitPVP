@@ -1,0 +1,10 @@
+name: L-s-KitPVP
+version: '1.0-SNAPSHOT'
+main: com.test.MyPlugin
+api-version: '1.21'
+author: TestAuthor
+description: A Paper 1.21.1 plugin.
+commands:
+  lpvp:
+    description: LPVP management command.
+    usage: /lpvp [hub|reload]

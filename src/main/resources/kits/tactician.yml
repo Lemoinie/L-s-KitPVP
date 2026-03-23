@@ -1,0 +1,33 @@
+display-name: "Tactician"
+icon: REDSTONE
+
+armor:
+  helmet:
+    material: IRON_HELMET
+    enchantments:
+      protection: 2
+  chestplate:
+    material: DIAMOND_CHESTPLATE
+    enchantments:
+      protection: 2
+  leggings:
+    material: IRON_LEGGINGS
+  boots:
+    material: IRON_BOOTS
+    enchantments:
+      feather_falling: 3
+
+items:
+  - material: DIAMOND_SWORD
+    enchantments:
+      sharpness: 3
+  - material: LAVA_BUCKET
+    amount: 2
+  - material: WATER_BUCKET
+    amount: 1
+  - material: COBWEB
+    amount: 32
+  - material: ENDER_PEARL
+    amount: 4
+  - material: GOLDEN_APPLE
+    amount: 12
