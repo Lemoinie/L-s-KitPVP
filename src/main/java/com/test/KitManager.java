@@ -29,39 +29,63 @@ public class KitManager {
         }
 
         File[] files = kitsFolder.listFiles((dir, name) -> name.endsWith(".yml"));
-        if (files == null) return;
+        if (files == null) {
+            plugin.getLogger().warning("No kit files found in the kits folder!");
+            return;
+        }
 
+        List<String> loadedNames = new ArrayList<>();
         for (File file : files) {
             String id = file.getName().replace(".yml", "");
             if (id.equals("example_kit_structure")) continue;
 
-            YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-            String displayName = config.getString("display-name", id);
-            Material icon = Material.valueOf(config.getString("icon", "IRON_SWORD"));
+            try {
+                YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+                String displayName = config.getString("display-name", id);
+                String iconStr = config.getString("icon", "IRON_SWORD").toUpperCase();
+                Material icon = Material.matchMaterial(iconStr);
+                if (icon == null) icon = Material.IRON_SWORD;
 
-            Map<String, Kit.KitItem> armor = new HashMap<>();
-            ConfigurationSection armorSection = config.getConfigurationSection("armor");
-            if (armorSection != null) {
-                for (String slot : armorSection.getKeys(false)) {
-                    armor.put(slot.toLowerCase(), parseKitItem(armorSection.getConfigurationSection(slot)));
+                Map<String, Kit.KitItem> armor = new HashMap<>();
+                ConfigurationSection armorSection = config.getConfigurationSection("armor");
+                if (armorSection != null) {
+                    for (String slot : armorSection.getKeys(false)) {
+                        Kit.KitItem kitItem = parseKitItem(armorSection.getConfigurationSection(slot));
+                        if (kitItem != null) {
+                            armor.put(slot.toLowerCase(), kitItem);
+                        }
+                    }
                 }
-            }
 
-            List<Kit.KitItem> items = new ArrayList<>();
-            List<Map<?, ?>> itemMaps = config.getMapList("items");
-            for (Map<?, ?> map : itemMaps) {
-                items.add(parseKitItem(map));
-            }
+                List<Kit.KitItem> items = new ArrayList<>();
+                List<Map<?, ?>> itemMaps = config.getMapList("items");
+                for (Map<?, ?> map : itemMaps) {
+                    Kit.KitItem kitItem = parseKitItem(map);
+                    if (kitItem != null) {
+                        items.add(kitItem);
+                    }
+                }
 
-            kits.put(id, new Kit(id, displayName, icon, armor, items));
+                kits.put(id, new Kit(id, displayName, icon, armor, items));
+                loadedNames.add(id);
+            } catch (Exception e) {
+                plugin.getLogger().severe("Failed to load kit " + id + ": " + e.getMessage());
+                e.printStackTrace();
+            }
         }
+        plugin.getLogger().info("Successfully loaded " + loadedNames.size() + " kits: " + String.join(", ", loadedNames));
     }
 
     private Kit.KitItem parseKitItem(ConfigurationSection section) {
         if (section == null) return null;
-        Material mat = Material.valueOf(section.getString("material", "AIR"));
+        String matStr = section.getString("material", "AIR").toUpperCase();
+        Material mat = Material.matchMaterial(matStr);
+        if (mat == null) mat = Material.AIR;
+        
         int amount = section.getInt("amount", 1);
         String potionType = section.getString("potion-type");
+        if (potionType != null) potionType = potionType.toUpperCase();
+        
         Map<String, Integer> enchs = new HashMap<>();
         ConfigurationSection enchSection = section.getConfigurationSection("enchantments");
         if (enchSection != null) {
@@ -73,15 +97,29 @@ public class KitManager {
     }
 
     private Kit.KitItem parseKitItem(Map<?, ?> map) {
-        Material mat = Material.valueOf((String) map.get("material"));
+        if (map == null) return null;
+        String matStr = (String) map.get("material");
+        if (matStr == null) return null;
+        
+        Material mat = Material.matchMaterial(matStr.toUpperCase());
+        if (mat == null) mat = Material.AIR;
+        
         Object amountObj = map.get("amount");
-        int amount = (amountObj instanceof Integer) ? (int) amountObj : 1;
+        int amount = (amountObj instanceof Number num) ? num.intValue() : 1;
+        
         String potionType = (String) map.get("potion-type");
+        if (potionType != null) potionType = potionType.toUpperCase();
+        
         Map<String, Integer> enchs = new HashMap<>();
         if (map.containsKey("enchantments")) {
-            Map<?, ?> enchMap = (Map<?, ?>) map.get("enchantments");
-            for (Map.Entry<?, ?> entry : enchMap.entrySet()) {
-                enchs.put(((String) entry.getKey()).toLowerCase(), (Integer) entry.getValue());
+            Object enchObj = map.get("enchantments");
+            if (enchObj instanceof Map<?, ?> enchMap) {
+                for (Map.Entry<?, ?> entry : enchMap.entrySet()) {
+                    String key = entry.getKey().toString().toLowerCase();
+                    if (entry.getValue() instanceof Number level) {
+                        enchs.put(key, level.intValue());
+                    }
+                }
             }
         }
         return new Kit.KitItem(mat, amount, enchs, potionType);

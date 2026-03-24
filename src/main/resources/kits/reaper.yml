@@ -1,0 +1,34 @@
+display-name: "§4Blood Knight"
+icon: DIAMOND_SWORD
+
+armor:
+  helmet:
+    material: IRON_HELMET
+    enchantments:
+      protection: 3
+  chestplate:
+    material: IRON_CHESTPLATE
+    enchantments:
+      protection: 3
+  leggings:
+    material: IRON_LEGGINGS
+    enchantments:
+      protection: 2
+  boots:
+    material: IRON_BOOTS
+    enchantments:
+      protection: 2
+
+items:
+  - material: IRON_SWORD
+    enchantments:
+      sharpness: 3
+  - material: GOLDEN_APPLE
+    amount: 12
+  - material: ENCHANTED_GOLDEN_APPLE
+    amount: 2
+  - material: POTION
+    amount: 2
+    potion-type: INSTANT_HEALTH
+  - material: COOKED_BEEF
+    amount: 32

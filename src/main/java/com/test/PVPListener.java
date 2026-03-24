@@ -259,12 +259,27 @@ public class PVPListener implements Listener {
                 }
                 // Both in same room and match started - allow damage
                 return;
+            } else {
+                // Different rooms
+                event.setCancelled(true);
+                damager.sendMessage(Component.text("You can only damage players in your PVP match!", NamedTextColor.RED));
+                return;
             }
         }
 
-        // If either is not in a room, or they are in different rooms
-        event.setCancelled(true);
-        damager.sendMessage(Component.text("You can only damage players in your PVP match!", NamedTextColor.RED));
+        if (damagerRoom.isPresent() && victimRoom.isEmpty()) {
+            event.setCancelled(true);
+            damager.sendMessage(Component.text("You cannot hit players outside of your PVP match!", NamedTextColor.RED));
+            return;
+        }
+
+        if (damagerRoom.isEmpty() && victimRoom.isPresent()) {
+            event.setCancelled(true);
+            damager.sendMessage(Component.text("That player is currently in a PVP match!", NamedTextColor.RED));
+            return;
+        }
+
+        // Both are NOT in a room - allow standard PVP
     }
 
     @EventHandler

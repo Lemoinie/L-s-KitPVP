@@ -1,0 +1,24 @@
+display-name: "§8Reaper"
+icon: NETHERITE_SWORD
+
+armor:
+  helmet:
+    material: DIAMOND_HELMET
+  chestplate:
+    material: DIAMOND_CHESTPLATE
+    enchantments:
+      protection: 2
+  leggings:
+    material: DIAMOND_LEGGINGS
+  boots:
+    material: DIAMOND_BOOTS
+
+items:
+  - material: NETHERITE_SWORD
+    enchantments:
+      sharpness: 5
+  - material: POTION
+    amount: 1
+    potion-type: STRENGTH
+  - material: GOLDEN_APPLE
+    amount: 4
